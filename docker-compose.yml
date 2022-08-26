@@ -1,0 +1,12 @@
+version: "3.7.13"
+
+services:
+  vesapp:
+    container_name: vesapp
+    image: vesapp
+    ports:
+    - "5000:5000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      
