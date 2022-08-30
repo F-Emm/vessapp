@@ -64,23 +64,23 @@ def quote():
 def contact():
     return render_template('/startup2-1.0.0/contact.html')
 
+db_store = {}
+
+output_store = ''
+
 @app.route('/getprediction',methods=['GET', 'POST'])
-def getprediction():    
+def getprediction():
+  global db_store
+  global output_store  
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
     return tf.data.Dataset.from_tensor_slices(dict(features)).batch(batch_size)
-
-    # features = ['Agent', 'receiver', 'Type', 'Month', 'Tonnage', 'LOA', 'Draft', 'Berth']
 	
   features = ['crew_Motivation', 'vessel_Condtion', 'consignee_throughput', 'weather', 'Tonnage', 'Packed'] 
   predict = {}
 
-  # print("Please type numeric values as prompted.")
-
   keys = request.form.keys()
-  # keys = sorted(keys)
-  #print(f"here it is = {keys}")
 
 # Use this in hosting:
 
@@ -116,12 +116,14 @@ def getprediction():
     law = request.form['Tonnage']
   try:
     if reag < 2000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 8001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
+
 
       predictions = model.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -130,10 +132,16 @@ def getprediction():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id], 100 * probability))
+        print(f"database cycle = {db_store}")
+        print(f"output = {DAYS[class_id]}")
+        
+        output_store = DAYS[class_id]
+
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id], 100 * probability))
 
   except Exception:
     pass
+# End
 
 # General Cargo session
 @app.route('/getprediction1',methods=['POST'])
@@ -186,12 +194,15 @@ def getprediction1():
     law = request.form['Tonnage']
   try:
     if reag < 1000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 10001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
+
+
 
       predictions = model1.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -200,7 +211,11 @@ def getprediction1():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS1[class_id]}")
+      output_store = DAYS1[class_id]
+      
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -265,12 +280,13 @@ def getprediction2():
     law = request.form['Tonnage']
   try:
     if reag < 10000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 30001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
 
       predictions = model2.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -279,7 +295,11 @@ def getprediction2():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS2[class_id]}")
+      output_store = DAYS2[class_id]
+
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -344,12 +364,13 @@ def getprediction3():
     law = request.form['Tonnage']
   try:
     if reag < 10000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 30001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
 
       predictions = model3.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -358,7 +379,11 @@ def getprediction3():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS3[class_id]}")
+      output_store = DAYS3[class_id]
+
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -424,12 +449,13 @@ def getprediction4():
     law = request.form['Tonnage']
   try:
     if reag < 10000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 30001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
 
       predictions = model4.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -438,7 +464,11 @@ def getprediction4():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS4[class_id]}")
+      output_store = DAYS4[class_id]
+
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -503,12 +533,13 @@ def getprediction5():
     law = request.form['Tonnage']
   try:
     if reag < 10000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 30001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
 
       predictions = model5.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -517,7 +548,11 @@ def getprediction5():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS5[class_id]}")
+      output_store = DAYS5[class_id]
+      
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -582,12 +617,13 @@ def getprediction6():
     law = request.form['Tonnage']
   try:
     if reag < 10000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 30001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
 
       predictions = model6.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -596,7 +632,11 @@ def getprediction6():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS6[class_id]}")
+      output_store = DAYS6[class_id]
+
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -661,12 +701,14 @@ def getprediction7():
     law = request.form['Tonnage']
   try:
     if reag < 10000:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is below tonnage values in dataset')
     elif reag >= 30001:
-      return render_template('/startup2-1.0.0/quote.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
+      return render_template('/startup2-1.0.0/output.html', output=f'Value Tonnage = "{law}" is higher than tonnage values in dataset')
     else:
       predict['Tonnage'] = [float(rea)]
       print(f"predict update = {predict}")
+      db_store = predict
+
 
       predictions = model7.predict(input_fn=lambda: input_fn(predict))
       for pred_dict in predictions:
@@ -675,15 +717,46 @@ def getprediction7():
 
         print('Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id], 100 * probability))
 
-      return render_template('/startup2-1.0.0/quote.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id], 100 * probability))
+      print(f"database cycle = {db_store}")
+      print(f"output = {DAYS7[class_id]}")
+      output_store = DAYS7[class_id]
+
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id], 100 * probability))
 
   except Exception:
     pass
 # End
 
+def get_db():
+  return db_store
+
+def get_output():
+  return output_store
+
+
+@app.route('/output',methods=['GET', 'POST'])
+def output():
+  db_cycle = db_store
+  output_cycle = output_store
+
+  c1 = db_cycle['crew_Motivation']
+
+  v1 = db_cycle['vessel_Condtion']
+
+  co1 = db_cycle['consignee_throughput']
+
+  w1 = db_cycle['weather']
+
+  t1 = db_cycle['Tonnage']
+
+  pca1 = db_cycle['Packed']
+
+  print(f"db_cycle = {db_cycle}")
+  print(f"output_cycle = {output_cycle}")
+  direct_to = f'https://www.ushvesapp.ushmoney.net?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery=__&output={output_cycle}&terminal=__&cargo_Type={pca1}'
+
+  return redirect(direct_to)
+
 # app.run(debug=True)
 if __name__ == "__main__":
-#   app.run(host="0.0.0.0", port=8080)
-#   from waitress import serve
-#   serve(app, host="0.0.0.0", port=5000)
    app.run(host="0.0.0.0", debug=True)
