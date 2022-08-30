@@ -10,7 +10,7 @@ from IPython.display import clear_output
 import tensorflow as tf
 # import tensorflow.compat.v2.feature_column as fc
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 import pickle
 import joblib
 
