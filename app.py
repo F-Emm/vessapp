@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
+from ast import Try
 import os
 
 import numpy as np
@@ -64,30 +65,47 @@ def quote():
 def contact():
     return render_template('/startup2-1.0.0/contact.html')
 
+# skey = ''
+# # @app.route('/soil',methods=['GET', 'POST']) = {{ url_for('soil')}}
+# def soil(skey):
+#     keys = request.form.keys()
+#     for key in keys:
+#       print(f"this is services = {key} -> {request.form[key]}")
+#       skey = key
+#       sol = request.form[key]
+#     return skey
+
 db_store = {}
 
 output_store = ''
 
+key_tonnage = ''
+
 @app.route('/getprediction',methods=['GET', 'POST'])
 def getprediction():
   global db_store
-  global output_store  
+  global output_store
+  global key_tonnage
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
     return tf.data.Dataset.from_tensor_slices(dict(features)).batch(batch_size)
+
+    # features = ['Agent', 'receiver', 'Type', 'Month', 'Tonnage', 'LOA', 'Draft', 'Berth']
 	
   features = ['crew_Motivation', 'vessel_Condtion', 'consignee_throughput', 'weather', 'Tonnage', 'Packed'] 
   predict = {}
 
-  keys = request.form.keys()
+  # print("Please type numeric values as prompted.")
 
+  keys = request.form.keys()
 # Use this in hosting:
 
 # Start
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -145,7 +163,10 @@ def getprediction():
 
 # General Cargo session
 @app.route('/getprediction1',methods=['POST'])
-def getprediction1():    
+def getprediction1():
+  global db_store
+  global output_store
+  global key_tonnage
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -162,6 +183,8 @@ def getprediction1():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
+
 
     try:
       reag = request.form['Tonnage']
@@ -223,7 +246,10 @@ def getprediction1():
 
 # Gypsum session
 @app.route('/getprediction2',methods=['POST'])
-def getprediction2():    
+def getprediction2():
+  global db_store
+  global output_store
+  global key_tonnage
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -240,6 +266,7 @@ def getprediction2():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -307,7 +334,11 @@ def getprediction2():
 
 # Malt session
 @app.route('/getprediction3',methods=['POST'])
-def getprediction3():    
+def getprediction3():
+  global db_store
+  global output_store
+  global key_tonnage
+
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -324,6 +355,7 @@ def getprediction3():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -392,7 +424,11 @@ def getprediction3():
 
 # Malt & General Cargo session
 @app.route('/getprediction4',methods=['POST'])
-def getprediction4():    
+def getprediction4():
+  global db_store
+  global output_store
+  global key_tonnage
+  
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -409,6 +445,7 @@ def getprediction4():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -476,7 +513,11 @@ def getprediction4():
 
 # Salt session
 @app.route('/getprediction5',methods=['POST'])
-def getprediction5():    
+def getprediction5():
+  global db_store
+  global output_store
+  global key_tonnage
+
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -493,6 +534,7 @@ def getprediction5():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -560,7 +602,11 @@ def getprediction5():
 
 # Wheat session
 @app.route('/getprediction6',methods=['POST'])
-def getprediction6():    
+def getprediction6():
+  global db_store
+  global output_store
+  global key_tonnage
+
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -577,6 +623,7 @@ def getprediction6():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -644,7 +691,11 @@ def getprediction6():
 
 # Zinc session
 @app.route('/getprediction7',methods=['POST'])
-def getprediction7():    
+def getprediction7():
+  global db_store
+  global output_store
+  global key_tonnage
+
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -661,6 +712,7 @@ def getprediction7():
   for key in keys:
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
+    key_tonnage = {request.form['Tonnage']}
 
     try:
       reag = request.form['Tonnage']
@@ -733,11 +785,16 @@ def get_db():
 def get_output():
   return output_store
 
+def get_toonage():
+  return key_tonnage
+
 
 @app.route('/output',methods=['GET', 'POST'])
 def output():
+
   db_cycle = db_store
   output_cycle = output_store
+  true_tonnage = key_tonnage
 
   c1 = db_cycle['crew_Motivation']
 
@@ -747,16 +804,64 @@ def output():
 
   w1 = db_cycle['weather']
 
-  t1 = db_cycle['Tonnage']
+  # t1 = db_cycle['Tonnage']
 
-  pca1 = db_cycle['Packed']
+  pca1 = db_cycle['Packed'] #aka delivery
+
+  t1 = "".join(true_tonnage)
+
+  print(f' true_ton = {t1}')
+
+  # Bitumen
+  # crew_Motivation = High, Low
+  # vessel_Condtion = Good, Bad
+  # consignee_throughput = Good, Bad
+  # weather = Rainy, Dry
+  # Tonnage = x tons
+  # Packed = Suction
+
+  if c1 == 0:
+    c1 = 'Low'
+  else:
+    c1 = 'High'
+  print(f'c1 = {c1}')
+
+  if v1 == 0:
+    v1 = 'Bad'
+  else:
+    v1 = 'Good'
+
+  if co1 == 0:
+    co1 = 'Bad'
+  else:
+    co1 = 'Good'
+
+  if w1 == 0:
+    w1 = 'Dry'
+  else:
+    w1 = 'Rainny'
+
+  # if pca1 == 0:
+  #   pca1 = 'Bad'
+  # else:
+  #   pca1 = 'Good'
+
+  # General Cargo
+  # crew_Motivation = High, Low
+  # vessel_Condtion = Good, Bad
+  # consignee_throughput = Good, Bad
+  # weather = Rainy, Dry
+  # Tonnage = x tons
+  # Packed = Bagged
+
+
 
   print(f"db_cycle = {db_cycle}")
   print(f"output_cycle = {output_cycle}")
-  direct_to = f'https://www.ushvesapp.ushmoney.net?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery=__&output={output_cycle}&terminal=__&cargo_Type={pca1}'
+  direct_to = f'https://www.ushvesapp.ushmoney.net?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type=__'
 
   return redirect(direct_to)
 
-# app.run(debug=True)
+
 if __name__ == "__main__":
-   app.run(host="0.0.0.0", debug=True)
+  app.run(host="0.0.0.0", debug=True)
