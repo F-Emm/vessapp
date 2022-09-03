@@ -17,10 +17,7 @@ import joblib
 
 app = Flask(__name__)
 
-#run_with_ngrok(app)
 model = joblib.load("models/model_bi.pkl")
-# daysbi.pkl
-# Ush Engineering\Projects\hero_project\Vessel_Prediction\
 
 model1 = joblib.load("models/model_gc.pkl")
 
@@ -55,7 +52,6 @@ DAYS7 = joblib.load("models/dayszc.pkl")
 @app.route('/',methods=['GET', 'POST'])
 def home():
     return render_template('/startup2-1.0.0/iindex.html')
-    # return redirect(url_for('/startup2-1.0.0/iindex.html'))
 
 @app.route('/quote',methods=['GET', 'POST'])
 def quote():
@@ -64,16 +60,6 @@ def quote():
 @app.route('/contact',methods=['POST'])
 def contact():
     return render_template('/startup2-1.0.0/contact.html')
-
-# skey = ''
-# # @app.route('/soil',methods=['GET', 'POST']) = {{ url_for('soil')}}
-# def soil(skey):
-#     keys = request.form.keys()
-#     for key in keys:
-#       print(f"this is services = {key} -> {request.form[key]}")
-#       skey = key
-#       sol = request.form[key]
-#     return skey
 
 db_store = {}
 
@@ -172,7 +158,7 @@ def getprediction():
         output_store = DAYS[class_id]
 
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -265,7 +251,7 @@ def getprediction1():
       output_store = DAYS1[class_id]
       
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS1[class_id], 100 * probability))
 
 
   except Exception:
@@ -369,7 +355,7 @@ def getprediction2():
       output_store = DAYS2[class_id]
 
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS2[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -472,7 +458,7 @@ def getprediction3():
       output_store = DAYS3[class_id]
 
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS3[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -576,7 +562,7 @@ def getprediction4():
       output_store = DAYS4[class_id]
 
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS4[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -679,7 +665,7 @@ def getprediction5():
       output_store = DAYS5[class_id]
       
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS5[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -782,7 +768,7 @@ def getprediction6():
       output_store = DAYS6[class_id]
 
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS6[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -886,7 +872,7 @@ def getprediction7():
       output_store = DAYS7[class_id]
 
       # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id], 100 * probability))
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id]))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days"'.format(DAYS7[class_id], 100 * probability))
 
   except Exception:
     pass
@@ -930,21 +916,6 @@ def output():
 
   print(f' true_ton = {t1}')
 
-  # if resetpca1 == 1:
-  #   pca1 = 'Suction'
-  # elif resetpca1 == 2:
-  #   pca1 = "l"
-  # else:
-  #   pca1 = 'Zinc'
-
-  # Bitumen
-  # crew_Motivation = High, Low
-  # vessel_Condtion = Good, Bad
-  # consignee_throughput = Good, Bad
-  # weather = Rainy, Dry
-  # Tonnage = x tons
-  # Packed = Suction
-
   if c1 == 0:
     c1 = 'Low'
   else:
@@ -965,21 +936,6 @@ def output():
     w1 = 'Dry'
   else:
     w1 = 'Rainny'
-
-  # if pca1 == 0:
-  #   pca1 = 'Bad'
-  # else:
-  #   pca1 = 'Good'
-
-  # General Cargo
-  # crew_Motivation = High, Low
-  # vessel_Condtion = Good, Bad
-  # consignee_throughput = Good, Bad
-  # weather = Rainy, Dry
-  # Tonnage = x tons
-  # Packed = Bagged
-
-
 
   print(f"db_cycle = {db_cycle}")
   print(f"output_cycle = {output_cycle}")
