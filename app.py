@@ -81,11 +81,22 @@ output_store = ''
 
 key_tonnage = ''
 
+delivery = ''
+
+type_nm = ''
+
 @app.route('/getprediction',methods=['GET', 'POST'])
 def getprediction():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Bitumen'
+  # print(f'del = {delivery}')
+  
+
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -106,6 +117,11 @@ def getprediction():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Suction'
 
     try:
       reag = request.form['Tonnage']
@@ -167,6 +183,10 @@ def getprediction1():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'General Cargo'
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -184,6 +204,11 @@ def getprediction1():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Bagged'
 
 
     try:
@@ -250,6 +275,10 @@ def getprediction2():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Gypsum'
 
   def input_fn(features, batch_size=256):
     #Convert the inputs to a Dataset without labels.
@@ -267,6 +296,16 @@ def getprediction2():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Bagged'
+    elif deliv == 2:
+      delivery = 'Loose'
+    else:
+      delivery = 'N/A'
+    # Gypsum
 
     try:
       reag = request.form['Tonnage']
@@ -338,6 +377,10 @@ def getprediction3():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Malt'
 
 
   def input_fn(features, batch_size=256):
@@ -356,6 +399,15 @@ def getprediction3():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Haulage'
+    elif deliv == 2:
+      delivery = 'Conveyor'
+    else:
+      delivery = 'N/A'
 
     try:
       reag = request.form['Tonnage']
@@ -428,6 +480,10 @@ def getprediction4():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Malt & General Cargo'
   
 
   def input_fn(features, batch_size=256):
@@ -446,6 +502,15 @@ def getprediction4():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Haulage'
+    elif deliv == 2:
+      delivery = 'Conveyor'
+    else:
+      delivery = 'N/A'
 
     try:
       reag = request.form['Tonnage']
@@ -517,6 +582,10 @@ def getprediction5():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Salt'
 
 
   def input_fn(features, batch_size=256):
@@ -535,6 +604,15 @@ def getprediction5():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Haulage'
+    elif deliv == 2:
+      delivery = 'Conveyor'
+    else:
+      delivery = 'N/A'
 
     try:
       reag = request.form['Tonnage']
@@ -606,6 +684,10 @@ def getprediction6():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Wheat'
 
 
   def input_fn(features, batch_size=256):
@@ -624,6 +706,15 @@ def getprediction6():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Bagged'
+    elif deliv == 2:
+      delivery = 'Loose'
+    else:
+      delivery = 'N/A'
 
     try:
       reag = request.form['Tonnage']
@@ -695,6 +786,10 @@ def getprediction7():
   global db_store
   global output_store
   global key_tonnage
+  global delivery
+  global type_nm
+
+  type_nm = 'Zinc'
 
 
   def input_fn(features, batch_size=256):
@@ -713,6 +808,15 @@ def getprediction7():
     print(key, request.form[key])
     print(f"key tonnage = {request.form['Tonnage']}")
     key_tonnage = {request.form['Tonnage']}
+    delivery = {request.form['Packed']}
+    deliv = "".join(delivery)
+    deliv = int(deliv)
+    if deliv == 1 :
+      delivery = 'Haulage'
+    elif deliv == 2:
+      delivery = 'Conveyor'
+    else:
+      delivery = 'N/A'
 
     try:
       reag = request.form['Tonnage']
@@ -807,10 +911,22 @@ def output():
   # t1 = db_cycle['Tonnage']
 
   pca1 = db_cycle['Packed'] #aka delivery
+  pca1 = delivery
+
+  c_tp = type_nm
+
+  print(f'del = {pca1}')
 
   t1 = "".join(true_tonnage)
 
   print(f' true_ton = {t1}')
+
+  # if resetpca1 == 1:
+  #   pca1 = 'Suction'
+  # elif resetpca1 == 2:
+  #   pca1 = "l"
+  # else:
+  #   pca1 = 'Zinc'
 
   # Bitumen
   # crew_Motivation = High, Low
@@ -858,7 +974,7 @@ def output():
 
   print(f"db_cycle = {db_cycle}")
   print(f"output_cycle = {output_cycle}")
-  direct_to = f'https://www.ushvesapp.ushmoney.net?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type=__'
+  direct_to = f'https://www.ushvesapp.ushmoney.net?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type={c_tp}'
 
   return redirect(direct_to)
 
