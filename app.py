@@ -171,7 +171,8 @@ def getprediction():
         
         output_store = DAYS[class_id]
 
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS[class_id]))
 
   except Exception:
     pass
@@ -263,7 +264,9 @@ def getprediction1():
       print(f"output = {DAYS1[class_id]}")
       output_store = DAYS1[class_id]
       
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS1[class_id]))
+
 
   except Exception:
     pass
@@ -365,7 +368,8 @@ def getprediction2():
       print(f"output = {DAYS2[class_id]}")
       output_store = DAYS2[class_id]
 
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS2[class_id]))
 
   except Exception:
     pass
@@ -467,7 +471,8 @@ def getprediction3():
       print(f"output = {DAYS3[class_id]}")
       output_store = DAYS3[class_id]
 
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS3[class_id]))
 
   except Exception:
     pass
@@ -570,7 +575,8 @@ def getprediction4():
       print(f"output = {DAYS4[class_id]}")
       output_store = DAYS4[class_id]
 
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS4[class_id]))
 
   except Exception:
     pass
@@ -672,7 +678,8 @@ def getprediction5():
       print(f"output = {DAYS5[class_id]}")
       output_store = DAYS5[class_id]
       
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS5[class_id]))
 
   except Exception:
     pass
@@ -774,7 +781,8 @@ def getprediction6():
       print(f"output = {DAYS6[class_id]}")
       output_store = DAYS6[class_id]
 
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS6[class_id]))
 
   except Exception:
     pass
@@ -877,7 +885,8 @@ def getprediction7():
       print(f"output = {DAYS7[class_id]}")
       output_store = DAYS7[class_id]
 
-      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id], 100 * probability))
+      # return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id], 100 * probability))
+      return render_template('/startup2-1.0.0/output.html', output='Prediction is "{} Days" ({:.1f}%)'.format(DAYS7[class_id]))
 
   except Exception:
     pass
