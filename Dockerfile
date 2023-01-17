@@ -8,7 +8,9 @@ COPY . .
 
 EXPOSE $PORT
 
-CMD  /bin/sh -c exec\ gunicorn\ --bind\ :\$PORT\ --workers\ 1\ --threads\ 8\ --timeout\ 0\ app:app
+CMD exec\ gunicorn\ --bind\ :\$PORT\ --workers\ 1\ --threads\ 8\ --timeout\ 0\ app:app
+
+#CMD  /bin/sh -c exec\ gunicorn\ --bind\ :\$PORT\ --workers\ 1\ --threads\ 8\ --timeout\ 0\ app:app
 
 #CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
 
