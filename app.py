@@ -53,8 +53,13 @@ DAYS7 = joblib.load("models/dayszc.pkl")
 def home():
     return render_template('/startup2-1.0.0/iindex.html')
 
+global target_value
+target_value = None
+
 @app.route('/quote',methods=['GET', 'POST'])
 def quote():
+    global target_value
+    target_value = request.args.get('target')
     return render_template('/startup2-1.0.0/quote.html')
 
 @app.route('/contact',methods=['POST'])
@@ -910,6 +915,8 @@ def output():
 
   c_tp = type_nm
 
+  target_value = target_value
+
   print(f'del = {pca1}')
 
   t1 = "".join(true_tonnage)
@@ -939,7 +946,7 @@ def output():
 
   print(f"db_cycle = {db_cycle}")
   print(f"output_cycle = {output_cycle}")
-  direct_to = f'https://ushvesapp.ushmoney.net/dashboard.php?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type={c_tp}'
+  direct_to = f'https://ushvesapp.ushmoney.net/dashboard.php?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type={c_tp}&target={target_value}'
 
   return redirect(direct_to)
 
