@@ -892,6 +892,8 @@ def get_output():
 def get_toonage():
   return key_tonnage
 
+def get_target():
+  return target_value
 
 @app.route('/output',methods=['GET', 'POST'])
 def output():
@@ -915,7 +917,7 @@ def output():
 
   c_tp = type_nm
 
-  target_value = target_value
+  tar_val = target_value
 
   print(f'del = {pca1}')
 
@@ -946,7 +948,7 @@ def output():
 
   print(f"db_cycle = {db_cycle}")
   print(f"output_cycle = {output_cycle}")
-  direct_to = f'https://ushvesapp.ushmoney.net/dashboard.php?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type={c_tp}&target={target_value}'
+  direct_to = f'https://ushvesapp.ushmoney.net/dashboard.php?crew_motivation={c1}&vessel_condition={v1}&consignee_throughput={co1}&weather_condition={w1}&tonnage={t1}&delivery={pca1}&output={output_cycle}&terminal=__&cargo_Type={c_tp}&target={tar_val}'
 
   return redirect(direct_to)
 
