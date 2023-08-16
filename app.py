@@ -60,7 +60,7 @@ target_value = None
 def quote():
     global target_value
     target_value = request.args.get('target')
-    return render_template('/startup2-1.0.0/quote.html')
+    return render_template('/startup2-1.0.0/quote.html', target_value=target_value)
 
 @app.route('/contact',methods=['POST'])
 def contact():
