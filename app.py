@@ -11,7 +11,7 @@ from IPython.display import clear_output
 import tensorflow as tf
 # import tensorflow.compat.v2.feature_column as fc
 
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session, url_for
 import pickle
 import joblib
 
@@ -53,13 +53,14 @@ DAYS7 = joblib.load("models/dayszc.pkl")
 def home():
     return render_template('/startup2-1.0.0/iindex.html')
 
-global target_value
-target_value = None
+# global target_value
+# target_value = None
 
 @app.route('/quote',methods=['GET', 'POST'])
 def quote():
-    global target_value
+    # global target_value
     target_value = request.args.get('target')
+    session['target_value'] = target_value
     return render_template('/startup2-1.0.0/quote.html', target_value=target_value)
 
 @app.route('/contact',methods=['POST'])
@@ -892,8 +893,8 @@ def get_output():
 def get_toonage():
   return key_tonnage
 
-def get_target():
-  return target_value
+# def get_target():
+#   return target_value
 
 @app.route('/output',methods=['GET', 'POST'])
 def output():
@@ -917,7 +918,7 @@ def output():
 
   c_tp = type_nm
 
-  tar_val = target_value
+  tar_val = session.get('target_value')
 
   print(f'del = {pca1}')
 
